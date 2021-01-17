@@ -96,7 +96,7 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 
-export EDITOR=vim
+export EDITOR=nvim
 export USER=seushin
 export MAIL=seushin@student.42seoul.kr
 
@@ -112,4 +112,3 @@ alias vi=$EDITOR
 alias vim=$EDITOR
 alias norm='~/.norminette/norminette.rb'
 alias normr='norm -R CheckForbiddenSourceHeader'
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
