@@ -31,8 +31,9 @@ git config --global user.name "seushin"
 cd $(dirname $BASH_SOURCE)
 BASE=$(pwd)
 
-mkdir -p ~/.vim/autolad
-curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# vim-plug
+mkdir -p ~/.vim/autoload
+[ -e ~/.vim/autoload/plug.vim ] || curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ln -sf $BASE/.ycm_extra_conf.py ~/.vim/
 
 # vimrc
