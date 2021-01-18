@@ -1,0 +1,13 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = seushin
+	email = seushin@student.42seoul.kr
+[credential]
+	helper = osxkeychain
+[alias]
+	s = status
+	l = "log --graph --abbrev-commit --decorate \
+	--format=format:'%C(bold blue)%h%C(reset) \
+	- %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) \
+	%C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
