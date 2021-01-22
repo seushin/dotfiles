@@ -110,5 +110,9 @@ alias l='ls -alF'
 alias ll='ls -l'
 alias vi=$EDITOR
 alias vim=$EDITOR
+alias which='type -p'
+alias gv='vim +GV +"autocmd BufWipeout <buffer> qall"'
 alias norm='~/.norminette/norminette.rb'
 alias normr='norm -R CheckForbiddenSourceHeader'
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

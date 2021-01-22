@@ -1,5 +1,5 @@
-" set nocompatible
-" filetype plugin on
+set nocompatible
+filetype plugin on
 syntax on
 
 set guicursor=
@@ -32,6 +32,7 @@ Plug 'valloric/youcompleteme'
 Plug 'tpope/vim-surround'
 " Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 call plug#end()
 
 colorscheme gruvbox
@@ -88,3 +89,4 @@ nnoremap <leader>t :YcmCompleter GetType<CR>
 "nmap <leader>gs :G<CR>
 nmap <leader>g :Gstatus<CR>gg<c-n>
 nnoremap <leader>d :Gdiff<CR>
+autocmd FileType git set foldlevel=1
