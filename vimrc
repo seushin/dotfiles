@@ -33,6 +33,8 @@ Plug 'tpope/vim-surround'
 " Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
+Plug 'ntpeters/vim-better-whitespace'
+	let g:show_spaces_that_precede_tabs=1
 call plug#end()
 
 colorscheme gruvbox
