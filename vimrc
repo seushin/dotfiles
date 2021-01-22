@@ -30,7 +30,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'valloric/youcompleteme'
 Plug 'tpope/vim-surround'
-" Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'ntpeters/vim-better-whitespace'
@@ -60,7 +59,6 @@ nnoremap <leader>bd :bd<CR>
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#branch#enabled=1
-"let g:airline_section_c = '%{fnamemodify(resolve(expand("%:p")),":~")}'
 let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 
 " fzf
@@ -81,9 +79,6 @@ let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_auto_trigger = 0
 let g:ycm_python_binary_path = '/Library/Frameworks/Python.framework/Versions/3.8/bin/python3'
 nnoremap <leader>t :YcmCompleter GetType<CR>
-
-"" fzf-checkout
-"nnoremap <leader>gc :GCheckout<CR>
 
 "" fugitive
 "nmap <leader>gj :diffget //3<CR>
