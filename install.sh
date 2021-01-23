@@ -26,3 +26,5 @@ echo "source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zs
 
 git config --global user.email "seushin@student.42seoul.kr"
 git config --global user.name "seushin"
+
+./install-vim.sh
