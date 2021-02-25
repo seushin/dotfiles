@@ -97,8 +97,6 @@ source $ZSH/oh-my-zsh.sh
 #
 
 export EDITOR=nvim
-export USER=seushin
-export MAIL=seushin@student.42seoul.kr
 
 alias ..='cd ..'
 alias ...='cd ../..'

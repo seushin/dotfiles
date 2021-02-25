@@ -34,6 +34,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'ntpeters/vim-better-whitespace'
 	let g:show_spaces_that_precede_tabs=1
+Plug 'pandark/42header.vim'
+	let g:fortytwoheader_user='seushin'
+	let g:fortytwoheader_mail='seushin@student.42seoul.kr'
+	nmap <f2> :FortyTwoHeader<CR>
 call plug#end()
 
 colorscheme gruvbox
@@ -85,5 +89,5 @@ nnoremap <leader>t :YcmCompleter GetType<CR>
 "nmap <leader>gf :diffget //2<CR>
 "nmap <leader>gs :G<CR>
 nmap <leader>g :Gstatus<CR>gg<c-n>
-nnoremap <leader>d :Gdiff<CR>
+nnoremap <leader>d :Gvdiff<CR>
 autocmd FileType git set foldlevel=1
