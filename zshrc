@@ -97,6 +97,7 @@ source $ZSH/oh-my-zsh.sh
 #
 
 export EDITOR=nvim
+export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 alias ..='cd ..'
 alias ...='cd ../..'

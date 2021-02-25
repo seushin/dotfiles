@@ -16,7 +16,7 @@ if [ "$(uname -s)" = "Darwin" ]; then
 		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 	echo "Updating homebrew"
-	brew install tmux neovim
+	brew install tmux neovim node yarn llvm
 fi
 
 # ohmyzsh

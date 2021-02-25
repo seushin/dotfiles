@@ -28,7 +28,6 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'valloric/youcompleteme'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
@@ -38,6 +37,7 @@ Plug 'pandark/42header.vim'
 	let g:fortytwoheader_user='seushin'
 	let g:fortytwoheader_mail='seushin@student.42seoul.kr'
 	nmap <f2> :FortyTwoHeader<CR>
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
 call plug#end()
 
 colorscheme gruvbox
@@ -66,28 +66,34 @@ let g:airline#extensions#branch#enabled=1
 let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 
 " fzf
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let g:fzf_layout = { 'down': '30%' }
 let $FZF_DEFAULT_OPTS='--reverse'
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 nmap <leader><tab> <plug>(fzf-maps-n)
 nnoremap <Leader><C-p> :GFiles<CR>
 nnoremap <Leader>pf :Files<CR>
 
-" YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_auto_trigger = 0
-let g:ycm_python_binary_path = '/Library/Frameworks/Python.framework/Versions/3.8/bin/python3'
-nnoremap <leader>t :YcmCompleter GetType<CR>
+" coc
+if has_key(g:plugs, 'coc.nvim')
+  inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : coc#refresh()
+  inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
+  inoremap <silent><expr> <cr> pumvisible() ?
+			  \coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+  let g:coc_global_extensions = ['coc-git', 'coc-clangd', 'coc-python',
+    \ 'coc-html', 'coc-json', 'coc-css', 'coc-html', 'coc-java',
+    \ 'coc-prettier', 'coc-eslint', 'coc-tsserver', 'coc-emoji']
+  command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+  augroup coc-config
+    autocmd!
+    autocmd VimEnter * nmap <silent> <leader>gd <Plug>(coc-definition)
+    autocmd VimEnter * nmap <silent> <leader>gi <Plug>(coc-implementation)
+    autocmd VimEnter * nmap <silent> <leader>su <Plug>(coc-references)
+  augroup END
+endif
 
 "" fugitive
-"nmap <leader>gj :diffget //3<CR>
-"nmap <leader>gf :diffget //2<CR>
-"nmap <leader>gs :G<CR>
 nmap <leader>g :Gstatus<CR>gg<c-n>
 nnoremap <leader>d :Gvdiff<CR>
 autocmd FileType git set foldlevel=1
