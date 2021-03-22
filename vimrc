@@ -75,25 +75,26 @@ nnoremap <Leader>pf :Files<CR>
 
 " coc
 if has_key(g:plugs, 'coc.nvim')
-  inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : coc#refresh()
-  inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
-  inoremap <silent><expr> <cr> pumvisible() ?
-			  \coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+	inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : coc#refresh()
+	inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
+	inoremap <silent><expr> <cr> pumvisible() ?
+				\ coc#_select_confirm() :
+				\ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-  let g:coc_global_extensions = ['coc-git', 'coc-clangd', 'coc-python',
-    \ 'coc-html', 'coc-json', 'coc-css', 'coc-html', 'coc-java',
-    \ 'coc-prettier', 'coc-eslint', 'coc-tsserver', 'coc-emoji']
-  command! -nargs=0 Prettier :CocCommand prettier.formatFile
+	let g:coc_global_extensions = ['coc-git', 'coc-clangd', 'coc-python',
+		\ 'coc-html', 'coc-json', 'coc-css', 'coc-html', 'coc-java',
+		\ 'coc-prettier', 'coc-eslint', 'coc-tsserver', 'coc-emoji']
+	command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-  augroup coc-config
-    autocmd!
-    autocmd VimEnter * nmap <silent> <leader>gd <Plug>(coc-definition)
-    autocmd VimEnter * nmap <silent> <leader>gi <Plug>(coc-implementation)
-    autocmd VimEnter * nmap <silent> <leader>su <Plug>(coc-references)
-  augroup END
+	augroup coc-config
+		autocmd!
+		autocmd VimEnter * nmap <silent> <leader>gd <Plug>(coc-definition)
+		autocmd VimEnter * nmap <silent> <leader>gi <Plug>(coc-implementation)
+		autocmd VimEnter * nmap <silent> <leader>su <Plug>(coc-references)
+	augroup END
 endif
 
 "" fugitive
-nmap <leader>g :Gstatus<CR>gg<c-n>
+nmap <leader>gs :Gstatus<CR>gg<c-n>
 nnoremap <leader>d :Gvdiff<CR>
 autocmd FileType git set foldlevel=1

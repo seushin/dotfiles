@@ -5,8 +5,8 @@ BASE=$(pwd)
 
 # vim-plug
 mkdir -p ~/.vim/autoload
-[ -e ~/.vim/autoload/plug.vim ] || curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-ln -sf $BASE/.ycm_extra_conf.py ~/.vim/
+[ -e ~/.vim/autoload/plug.vim ] ||
+	curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # vimrc
 mv -v ~/.vimrc ~/.vimrc.old 2> /dev/null
