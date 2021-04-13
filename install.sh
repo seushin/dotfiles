@@ -1,31 +1,113 @@
 #!/bin/bash
-# ref : https://github.com/junegunn/dotfiles/blob/master/install
-
-cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
 BASE=$(pwd)
-for rc in *rc tmux.conf gitconfig; do
+COLOR_GRAY="\033[1;38;5;243m"
+COLOR_BLUE="\033[1;34m"
+COLOR_GREEN="\033[1;32m"
+COLOR_RED="\033[1;31m"
+COLOR_PURPLE="\033[1;35m"
+COLOR_NONE="\033[0m"
+
+title() {
+	echo -e "\n${COLOR_PURPLE}📍$1${COLOR_NONE}"
+	echo -e "${COLOR_GRAY}=================================${COLOR_NONE}\n"
+}
+
+info() {
+	echo -e "${COLOR_BLUE}💁‍♂️Info: ${COLOR_NONE}$1"
+}
+
+error() {
+	echo -e "${COLOR_RED}❌Error: ${COLOR_NONE}$1"
+	exit 1
+}
+
+success() {
+	echo -e "${COLOR_GREEN}✅$1${COLOR_NONE}"
+}
+
+set_symlink() {
+	title "Create symlink and backup dir"
+
+	CONFIG_FILES=("vimrc" "zshrc" "tmux.conf" "gitconfig")
 	mkdir -pv bak
-	[ -e ~/."$rc" ] && mv -v ~/."$rc" bak/."$rc"
-	ln -sfv "$BASE/$rc" ~/."$rc"
-done
+	for file in "${CONFIG_FILES[@]}"; do
+		if [ -e ~/."$file" ]; then
+			info "Backup $file"
+			mv -v ~/."$file" bak/."$file"
+		fi
+		ln -sfv "$BASE/$file" ~/."$file"
+	done
+}
 
-if [ "$(uname -s)" = "Darwin" ]; then
-	# Homebrew
-	[ -z "$(which brew)" ] &&
-		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+set_brew() {
+	if [ "$(uname -s)" = "Darwin" ]; then
+		if test ! "$(command -v brew)"; then
+			info "Installing Homebrew"
+			# if is cluster use this- rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc
+			ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+		fi
 
-	echo "Updating homebrew"
-	brew install tmux neovim node yarn llvm
-fi
+		info "Updating homebrew"
+		brew update
+		brew install tmux neovim node yarn llvm
+	else
+		error "Not macOS"
+	fi
+}
 
-# ohmyzsh
-[ -e ~/.oh-my-zsh ] ||
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-brew install romkatv/powerlevel10k/powerlevel10k
-echo "source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
+set_shell() {
+	title "Installing oh-my-zsh"
+	# ohmyzsh
+	[ -e ~/.oh-my-zsh ] ||
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+}
 
-git config --global user.email "seushin@student.42seoul.kr"
-git config --global user.name "seushin"
+set_vim() {
+	title "Setting up vim"
+	# vim-plug
+	mkdir -p ~/.vim/autoload
+	if [ ! -e ~/.vim/autoload/plug.vim ]; then
+		info "Installing vim-plug"
+		curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	fi
 
-./install-vim.sh
+	# nvim
+	info "Setting up neovim"
+	mkdir -p ~/.config/nvim/autoload
+	info "Create ~/.config/nvim/init.vim"
+	ln -sfv "$BASE"/vimrc ~/.config/nvim/init.vim
+	info "Copy coc-settings.json"
+	cp "$BASE"/coc-settings.json ~/.config/nvim/coc-settings.json
+	info "Create ~/.config/nvim/autoload/plug.vim"
+	ln -sfv ~/.vim/autoload/plug.vim ~/.config/nvim/autoload/
+
+	# vim-plug install
+	vim +PlugInstall +qall
+}
+
+case "$1" in
+	all)
+		set_symlink
+		set_brew
+		set_shell
+		set_vim
+		;;
+	rc)
+		set_symlink
+		;;
+	vim)
+		set_symlink
+		set_vim
+		;;
+	brew)
+		set_brew
+		;;
+	*)
+		echo -e "\nUsage: ./$(basename "$0") { all | rc | vim | brew }\n"
+		exit 1
+		;;
+esac
+
+echo -e
+success "Done."
