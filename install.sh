@@ -14,7 +14,7 @@ title() {
 }
 
 info() {
-	echo -e "${COLOR_BLUE}💁‍♂️Info: ${COLOR_NONE}$1"
+	echo -e "${COLOR_BLUE}💁Info: ${COLOR_NONE}$1"
 }
 
 error() {
@@ -104,7 +104,7 @@ case "$1" in
 		set_brew
 		;;
 	*)
-		echo -e "\nUsage: ./$(basename "$0") { all | rc | vim | brew }\n"
+		echo -e "Usage: ./$(basename "$0") { all | rc | vim | brew }"
 		exit 1
 		;;
 esac

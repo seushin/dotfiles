@@ -30,7 +30,7 @@
 	augroup indent_list
 		autocmd!
 		autocmd FileType html,css setlocal ts=2 sw=2 expandtab
-		autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
+		autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 	augroup END
 
 	" windcmd {{{
@@ -61,6 +61,8 @@
 		Plug 'tpope/vim-surround'
 		Plug 'ryanoasis/vim-devicons'
 		Plug 'preservim/vimux'
+			nmap <leader>vp :VimuxPromptCommand<CR>
+			nmap <silent> <leader>vq :VimuxCloseRunner<CR>
 
 		Plug 'pandark/42header.vim'
 			let g:fortytwoheader_user='seushin'
@@ -206,4 +208,4 @@
 	set background=dark
 " }}}
 
-" vim:foldmethod=marker:foldlevel=0
+" vim:foldmethod=marker:foldlevel=1:foldenable
