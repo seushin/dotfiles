@@ -56,7 +56,7 @@ set_brew() {
 	fi
 }
 
-set_shell() {
+set_zsh() {
 	title "Installing oh-my-zsh"
 	# ohmyzsh
 	[ -e ~/.oh-my-zsh ] ||
@@ -73,14 +73,24 @@ set_vim() {
 	fi
 
 	# nvim
-	info "Setting up neovim"
-	mkdir -p ~/.config/nvim/autoload
-	info "Create ~/.config/nvim/init.vim"
-	ln -sfv "$BASE"/vimrc ~/.config/nvim/init.vim
-	info "Copy coc-settings.json"
-	cp "$BASE"/coc-settings.json ~/.config/nvim/coc-settings.json
-	info "Create ~/.config/nvim/autoload/plug.vim"
-	ln -sfv ~/.vim/autoload/plug.vim ~/.config/nvim/autoload/
+	if [ "$(command -v nvim)" ]; then
+		info "Setting up neovim"
+
+		CONFIG_FILES=("~/.config/nvim/init.vim:$BASE/vimrc"
+			"~/.config/nvim/coc-settings.json:$BASE/coc-settings.json"
+			"~/.config/nvim/autoload/plug.vim:~/.vim/autoload/plug.vim")
+		mkdir -p ~/.config/nvim/autoload
+		mkdir -pv bak
+		for file in "${CONFIG_FILES[@]}"; do
+			TARGET=${file%%:*}
+			SOURCE=${file#*:}
+			if [ -e "${TARGET}" ]; then
+				info "Backup ${TARGET}"
+				mv -v "${TARGET}" bak/."${TARGET}"
+			fi
+			ln -sfv "${SOURCE}" "${TARGET}"
+		done
+	fi
 
 	# vim-plug install
 	vim +PlugInstall +qall
@@ -90,7 +100,7 @@ case "$1" in
 	all)
 		set_symlink
 		set_brew
-		set_shell
+		set_zsh
 		set_vim
 		;;
 	rc)

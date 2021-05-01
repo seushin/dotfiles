@@ -23,7 +23,7 @@
 	set listchars=tab:→\ ,
 
 	set signcolumn=yes " always show signcolumn
-	set cmdheight=2 colorcolumn=80
+	set cmdheight=1 colorcolumn=80
 	set scrolloff=8
 
 	set ts=4 sw=4 ai si noexpandtab
@@ -107,7 +107,8 @@
 				\ 'coc-pairs',
 				\ 'coc-sh',
 				\ 'coc-explorer',
-				\ 'coc-diagnostic'
+				\ 'coc-diagnostic',
+				\ 'coc-highlight'
 				\ ]
 			let g:coc_config_file="$HOME/.config/nvim/coc-settings.json"
 
@@ -117,7 +118,7 @@
 						\ coc#_select_confirm() :
 						\ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-			nmap <silent> <leader>k :CocCommand explorer<cr>
+			nmap <silent> <leader>k :CocCommand explorer --quit-on-open<cr>
 
 			" Use K to show documentation in preview window
 			nnoremap <silent> K :call <SID>show_documentation()<CR>
