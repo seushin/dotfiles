@@ -58,7 +58,7 @@
 		Plug 'junegunn/vim-peekaboo'
 		Plug 'ryanoasis/vim-devicons'
 		Plug 'christoomey/vim-tmux-navigator'
-			let :tmux_navigator_no_mappings = 1
+			let g:tmux_navigator_no_mappings = 1
 			nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 			nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 			nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
