@@ -2,13 +2,13 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/haribo/.oh-my-zsh"
+export ZSH="/Users/seushin/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="agnoster"
 
 plugins=(git)
 
@@ -57,7 +57,5 @@ alias vi=$EDITOR
 alias vim=$EDITOR
 alias which='type -p'
 alias gv='vim +GV +"autocmd BufWipeout <buffer> qall"'
-alias norm='~/.norminette/norminette.rb'
-alias normr='norm -R CheckForbiddenSourceHeader'
-
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#alias norm='~/.norminette/norminette.rb'
+#alias normr='norm -R CheckForbiddenSourceHeader'
