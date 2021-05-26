@@ -81,14 +81,15 @@ set_vim() {
 	if [ "$(command -v nvim)" ]; then
 		info "Setting up neovim"
 
-		declare -A CONFIG_FILES=( ["$HOME/.config/nvim/init.vim"]="$BASE/vimrc"
-			["$HOME/.config/nvim/coc-settings.json"]="$BASE/coc-settings.json"
-			["$HOME/.config/nvim/autoload/plug.vim"]="$HOME/.vim/autoload/plug.vim")
+		CONFIG_FILES=( "$HOME/.config/nvim/init.vim:$BASE/vimrc"
+			"$HOME/.config/nvim/coc-settings.json:$BASE/coc-settings.json"
+			"$HOME/.config/nvim/autoload/plug.vim:$HOME/.vim/autoload/plug.vim" )
 		mkdir -p "$HOME/.config/nvim/autoload"
 		mkdir -pv "backup"
-		for DEST in "${!CONFIG_FILES[@]}"; do
-			SOURCE=${CONFIG_FILES[$DEST]}
-			if [ -e ${DEST} ]; then
+		for arr in "${CONFIG_FILES[@]}"; do
+			DEST="${arr%%:*}"
+			SOURCE="${arr##*:}"
+			if [ -e "${DEST}" ]; then
 				info "Backup ${DEST}"
 				mv -v "${DEST}" "backup/$(basename ${DEST})"
 			fi
