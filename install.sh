@@ -9,21 +9,25 @@ COLOR_PURPLE="\033[1;35m"
 COLOR_NONE="\033[0m"
 
 title() {
-	echo -e "\n${COLOR_PURPLE}📍$1${COLOR_NONE}"
+	echo -e "\n${COLOR_PURPLE}📍 $1${COLOR_NONE}"
 	echo -e "${COLOR_GRAY}=================================${COLOR_NONE}\n"
 }
 
 info() {
-	echo -e "${COLOR_BLUE}💁Info: ${COLOR_NONE}$1"
+	echo -e "${COLOR_BLUE}💁 Info: ${COLOR_NONE}$1"
 }
 
 error() {
-	echo -e "${COLOR_RED}❌Error: ${COLOR_NONE}$1"
+	echo -e "${COLOR_RED}❌ Error: ${COLOR_NONE}$1"
 	exit 1
 }
 
+warning() {
+		echo -e "${COLOR_RED}⚠ Warning: ${COLOR_NONE}$1"
+	}
+
 success() {
-	echo -e "${COLOR_GREEN}✅$1${COLOR_NONE}"
+	echo -e "${COLOR_GREEN}✅ $1${COLOR_NONE}"
 }
 
 set_symlink() {
@@ -41,19 +45,20 @@ set_symlink() {
 }
 
 set_brew() {
-	if [ "$(uname -s)" = "Darwin" ]; then
-		if test ! "$(command -v brew)"; then
-			info "Installing Homebrew"
+	if [ ! "$(command -v brew)" ]; then
+		info "Installing Homebrew"
+		if [ "$(uname -s)" = "Darwin" ]; then
 			# if is cluster use this- rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc
 			ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 		fi
-
-		info "Updating homebrew"
-		brew update
-		brew install tmux neovim node yarn llvm
-	else
-		error "Not macOS"
+		else if [ "$(uname -s)" = "Linux" ]; then
+			/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		fi
 	fi
+
+	info "Updating homebrew"
+	brew update
+	brew install tmux neovim node yarn llvm
 }
 
 set_zsh() {
@@ -76,24 +81,24 @@ set_vim() {
 	if [ "$(command -v nvim)" ]; then
 		info "Setting up neovim"
 
-		CONFIG_FILES=("~/.config/nvim/init.vim:$BASE/vimrc"
-			"~/.config/nvim/coc-settings.json:$BASE/coc-settings.json"
-			"~/.config/nvim/autoload/plug.vim:~/.vim/autoload/plug.vim")
-		mkdir -p ~/.config/nvim/autoload
-		mkdir -pv bak
-		for file in "${CONFIG_FILES[@]}"; do
-			TARGET=${file%%:*}
-			SOURCE=${file#*:}
-			if [ -e "${TARGET}" ]; then
-				info "Backup ${TARGET}"
-				mv -v "${TARGET}" bak/."${TARGET}"
+		declare -A CONFIG_FILES=( ["$HOME/.config/nvim/init.vim"]="$BASE/vimrc"
+			["$HOME/.config/nvim/coc-settings.json"]="$BASE/coc-settings.json"
+			["$HOME/.config/nvim/autoload/plug.vim"]="$HOME/.vim/autoload/plug.vim")
+		mkdir -p "$HOME/.config/nvim/autoload"
+		mkdir -pv "backup"
+		for DEST in "${!CONFIG_FILES[@]}"; do
+			SOURCE=${CONFIG_FILES[$DEST]}
+			if [ -e ${DEST} ]; then
+				info "Backup ${DEST}"
+				mv -v "${DEST}" "backup/$(basename ${DEST})"
 			fi
-			ln -sfv "${SOURCE}" "${TARGET}"
+			ln -sfv "${SOURCE}" "${DEST}"
 		done
+		nvim +PlugInstall +qall
+	else
+		warning "neovim not found"
+		vim +PlugInstall +qall
 	fi
-
-	# vim-plug install
-	vim +PlugInstall +qall
 }
 
 case "$1" in

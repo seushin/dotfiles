@@ -34,10 +34,6 @@
 	augroup END
 
 	" windcmd {{{
-		nnoremap <C-h> :wincmd h<CR>
-		nnoremap <C-j> :wincmd j<CR>
-		nnoremap <C-k> :wincmd k<CR>
-		nnoremap <C-l> :wincmd l<CR>
 		nnoremap <leader>+ :vertical resize +5<CR>
 		nnoremap <leader>- :vertical resize -5<CR>
 		nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
@@ -59,7 +55,14 @@
 	" General plugin {{{
 		Plug 'tpope/vim-commentary'
 		Plug 'tpope/vim-surround'
+		Plug 'junegunn/vim-peekaboo'
 		Plug 'ryanoasis/vim-devicons'
+		Plug 'christoomey/vim-tmux-navigator'
+			let g:tmux_navigator_no_mappings = 1
+			nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+			nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+			nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+			nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 		Plug 'preservim/vimux'
 			nmap <leader>vp :VimuxPromptCommand<CR>
 			nmap <silent> <leader>vq :VimuxCloseRunner<CR>
@@ -208,5 +211,3 @@
 	colorscheme gruvbox
 	set background=dark
 " }}}
-
-" vim:foldmethod=marker:foldlevel=1:foldenable
