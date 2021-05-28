@@ -42,7 +42,16 @@ if [ "$(command -v nvim)" ]; then
 else
 	export EDITOR="vi"
 fi
-export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+if [ -e "$HOME/.brew" ]; then
+	export PATH="$HOME/.brew/bin:/Users/seushin/.brew/opt/llvm/bin/:$PATH"
+else
+	export PATH="/usr/local/opt/llvm/bin:$PATH"
+fi
+
+if [ -e "$HOME/42toolbox" ]; then
+	source $HOME/42toolbox/shell_utils.sh
+fi
 
 alias .='cd ..'
 alias ..='cd ..'
@@ -57,5 +66,6 @@ alias vi=$EDITOR
 alias vim=$EDITOR
 alias which='type -p'
 alias gv='vim +GV +"autocmd BufWipeout <buffer> qall"'
-#alias norm='~/.norminette/norminette.rb'
-#alias normr='norm -R CheckForbiddenSourceHeader'
+alias norm='~/.norminette/norminette.rb'
+alias normr='norm -R CheckForbiddenSourceHeader'
+
