@@ -34,11 +34,11 @@ set_symlink() {
 	title "Create symlink and backup dir"
 
 	CONFIG_FILES=("vimrc" "zshrc" "tmux.conf" "gitconfig")
-	mkdir -pv bak
+	mkdir -pv backup
 	for file in "${CONFIG_FILES[@]}"; do
 		if [ -e ~/."$file" ]; then
 			info "Backup $file"
-			mv -v ~/."$file" bak/."$file"
+			mv -v ~/."$file" backup/."$file"
 		fi
 		ln -sfv "$BASE/$file" ~/."$file"
 	done
@@ -63,9 +63,9 @@ set_brew() {
 
 set_zsh() {
 	title "Installing oh-my-zsh"
-	# ohmyzsh
-	[ -e ~/.oh-my-zsh ] ||
+	if [ ! -e ~/.oh-my-zsh ]; then
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	fi
 }
 
 set_vim() {
