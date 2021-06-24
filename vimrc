@@ -1,49 +1,26 @@
 " General {{{
-	set nocompatible
 	filetype plugin on
 	syntax on
 
 	let mapleader=" "
-	let maplocalleader=" "
-
-	set guicursor=
-	set nu rnu
-	set incsearch
-	set visualbell
-	set showmatch
-
-	set title
-	set nowrap
-	set noswapfile
-	set nobackup
+	set title nowrap noswf nobk is vb sm nu rnu
+	set signcolumn=yes cmdheight=1 colorcolumn=80 scrolloff=8
+	set list listchars=tab:→\ ,
+	set mouse=a guicursor=
 	set clipboard=unnamed
-	set mouse=a
-
-	set list
-	set listchars=tab:→\ ,
-
-	set signcolumn=yes " always show signcolumn
-	set cmdheight=1 colorcolumn=80
-	set scrolloff=8
+	set undofile undodir=$HOME/.config/nvim/undo
 
 	set ts=4 sw=4 ai si noexpandtab
 	augroup indent_list
 		autocmd!
 		autocmd FileType html,css setlocal ts=2 sw=2 expandtab
-		autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+		autocmd FileType javascript,yaml setlocal ts=2 sts=2 sw=2 expandtab
 	augroup END
 
-	" windcmd {{{
-		nnoremap <leader>+ :vertical resize +5<CR>
-		nnoremap <leader>- :vertical resize -5<CR>
-		nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
-	" }}}
-
-	" buffers {{{
-		nnoremap <tab> :bn<CR>
-		nnoremap <s-tab> :bp<CR>
-		nnoremap <leader>bd :bd<CR>
-	" }}}
+	nnoremap <tab> :bn<CR>
+	nnoremap <s-tab> :bp<CR>
+	nnoremap <leader>bd :bd<CR>
+	nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
 " }}}
 
 " vim-plug {{{
@@ -67,7 +44,7 @@
 			nmap <leader>vp :VimuxPromptCommand<CR>
 			nmap <silent> <leader>vq :VimuxCloseRunner<CR>
 
-		Plug 'pandark/42header.vim'
+		Plug 'seushin/42header.vim'
 			let g:fortytwoheader_user='seushin'
 			let g:fortytwoheader_mail='seushin@student.42seoul.kr'
 			nmap <f2> :FortyTwoHeader<CR>
@@ -77,7 +54,7 @@
 		Plug 'vim-airline/vim-airline'
 			let g:airline#extensions#tabline#enabled = 1
 			let g:airline#extensions#hunks#enabled = 0
-			let g:airline#extensions#branch#enabled=1
+			let g:airline#extensions#branch#enabled = 1
 			let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 	" }}}
 
@@ -113,7 +90,7 @@
 				\ 'coc-diagnostic',
 				\ 'coc-highlight'
 				\ ]
-			let g:coc_config_file="$HOME/.config/nvim/coc-settings.json"
+			let g:coc_config_file = "$HOME/.config/nvim/coc-settings.json"
 
 			inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : coc#refresh()
 			inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
@@ -173,7 +150,7 @@
 			\ ]
 
 			let g:startify_bookmarks = [
-				\ { 'c': '~/.vimrc' },
+				\ { 'v': '~/.vimrc' },
 				\ { 'z': '~/.zshrc' }
 			\ ]
 
@@ -193,13 +170,14 @@
 			augroup END
 			let g:rainbow#pairs = [['(', ')'], ['[', ']']]
 		Plug 'ntpeters/vim-better-whitespace'
-			let g:show_spaces_that_precede_tabs=1
+			let g:show_spaces_that_precede_tabs = 1
 	" }}}
 
 	" git {{{
 		Plug 'tpope/vim-fugitive'
-			nmap <leader>gs :Gstatus<CR>gg<c-n>
+			nmap <leader>gs :Git<CR>gg<c-n>
 			nnoremap <leader>d :Gvdiff<CR>
+			nnoremap <leader>dg :diffget<CR>
 			autocmd FileType git set foldlevel=1
 		Plug 'junegunn/gv.vim'
 	" }}}
