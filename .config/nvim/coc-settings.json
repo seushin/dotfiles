@@ -25,5 +25,6 @@
     "explorer.keyMappings.global": {
         "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"]
     },
+	"explorer.file.showHiddenFiles": true,
     "eslint.autoFixOnSave": false
 }

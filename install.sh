@@ -33,7 +33,7 @@ success() {
 set_symlink() {
 	title "Create symlink and backup dir"
 
-	CONFIG_FILES=("vimrc" "zshrc" "tmux.conf" "gitconfig")
+	CONFIG_FILES=("zshrc" "tmux.conf" "gitconfig")
 	mkdir -pv backup
 	for file in "${CONFIG_FILES[@]}"; do
 		if [ -e ~/."$file" ]; then
@@ -66,38 +66,34 @@ set_zsh() {
 	if [ ! -e ~/.oh-my-zsh ]; then
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 	fi
+	brew install bat zsh-syntax-highlighting
+	mkdir -p "$HOME/.config/zsh"
+	ln -sfv "${BASE}/.config/zsh/.zshenv" "${HOME}/.config/zsh/.zshenv"
 }
 
 set_vim() {
 	title "Setting up vim"
-	# vim-plug
-	mkdir -p ~/.vim/autoload
-	if [ ! -e ~/.vim/autoload/plug.vim ]; then
-		info "Installing vim-plug"
-		curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	fi
 
-	# nvim
 	if [ "$(command -v nvim)" ]; then
 		info "Setting up neovim"
 
-		CONFIG_FILES=( "$HOME/.config/nvim/init.vim:$BASE/vimrc"
-			"$HOME/.config/nvim/coc-settings.json:$BASE/coc-settings.json"
-			"$HOME/.config/nvim/autoload/plug.vim:$HOME/.vim/autoload/plug.vim" )
-		mkdir -p "$HOME/.config/nvim/autoload"
+		mkdir -p "$HOME/.config"
 		mkdir -pv "backup"
-		for arr in "${CONFIG_FILES[@]}"; do
-			DEST="${arr%%:*}"
-			SOURCE="${arr##*:}"
-			if [ -e "${DEST}" ]; then
-				info "Backup ${DEST}"
-				mv -v "${DEST}" "backup/$(basename ${DEST})"
-			fi
-			ln -sfv "${SOURCE}" "${DEST}"
-		done
+		DEST="${HOME}/.config/nvim"
+		SOURCE="${BASE}/.config/nvim"
+		if [ -e "${DEST}" ]; then
+			info "Backup ${DEST}"
+			mv -v "${DEST}" "backup/$(basename ${DEST})"
+		fi
+		ln -sfv "${SOURCE}" "${DEST}"
 		nvim +PlugInstall +qall
 	else
 		warning "neovim not found"
+
+		DEST="${HOME}/.vim/autoload"
+		SOURCE="${BASE}/.config/nvim/autoload"
+		ln -sfv "${SOURCE}" "${DEST}"
+		ln -sfv "${BASE}/.config/nvim/init.vim" "${HOME}/.vimrc"
 		vim +PlugInstall +qall
 	fi
 }
