@@ -3,10 +3,10 @@
 	syntax on
 
 	let mapleader=" "
+	set mouse=a guicursor=
 	set title nowrap noswf nobk is vb sm nu rnu
 	set signcolumn=yes cmdheight=1 colorcolumn=80 scrolloff=8
 	set list listchars=tab:→\ ,
-	set mouse=a guicursor=
 	set clipboard=unnamed
 	set undofile undodir=$HOME/.config/nvim/undo
 
@@ -150,7 +150,7 @@
 			\ ]
 
 			let g:startify_bookmarks = [
-				\ { 'v': '~/.vimrc' },
+				\ { 'v': '~/.config/nvim/init.vim' },
 				\ { 'z': '~/.zshrc' }
 			\ ]
 
