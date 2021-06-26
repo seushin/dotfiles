@@ -67,6 +67,7 @@ set_zsh() {
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 	fi
 	brew install bat zsh-syntax-highlighting
+	npm i -g git-split-diff
 	mkdir -p "$HOME/.config/zsh"
 	ln -sfv "${BASE}/.config/zsh/.zshenv" "${HOME}/.config/zsh/.zshenv"
 }
@@ -80,7 +81,7 @@ set_vim() {
 		mkdir -p "$HOME/.config"
 		mkdir -pv "backup"
 		DEST="${HOME}/.config/nvim"
-		SOURCE="${BASE}/.config/nvim"
+		SOURCE="${BASE}/config/nvim"
 		if [ -e "${DEST}" ]; then
 			info "Backup ${DEST}"
 			mv -v "${DEST}" "backup/$(basename ${DEST})"
@@ -90,10 +91,8 @@ set_vim() {
 	else
 		warning "neovim not found"
 
-		DEST="${HOME}/.vim/autoload"
-		SOURCE="${BASE}/.config/nvim/autoload"
-		ln -sfv "${SOURCE}" "${DEST}"
-		ln -sfv "${BASE}/.config/nvim/init.vim" "${HOME}/.vimrc"
+		ln -sfv "${BASE}/config/nvim/autoload" "${HOME}/.vim/autoload"
+		ln -sfv "${BASE}/config/nvim/init.vim" "${HOME}/.vimrc"
 		vim +PlugInstall +qall
 	fi
 }
