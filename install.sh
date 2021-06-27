@@ -67,9 +67,8 @@ set_zsh() {
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 	fi
 	brew install bat zsh-syntax-highlighting
-	npm i -g git-split-diff
-	mkdir -p "$HOME/.config/zsh"
-	ln -sfv "${BASE}/.config/zsh/.zshenv" "${HOME}/.config/zsh/.zshenv"
+	npm i -g git-split-diffs
+	ln -sfv "${BASE}/config/zsh" "${HOME}/.config/zsh"
 }
 
 set_vim() {
