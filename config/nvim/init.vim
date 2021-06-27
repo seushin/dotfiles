@@ -48,10 +48,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }}
 	autocmd CursorHold * silent call CocActionAsync('highlight')
 
 	command! -nargs=0 Prettier :CocCommand prettier.formatFile
-	nnoremap <leader>p :CocCommand prettier.formatFile<cr>
-	nnoremap <silent> <leader>gd <Plug>(coc-definition)
-	nnoremap <silent> <leader>gi <Plug>(coc-implementation)
-	nnoremap <silent> <leader>su <Plug>(coc-references)
+	nmap <leader>p :CocCommand prettier.formatFile<cr>
+	nmap <silent> <leader>gd <Plug>(coc-definition)
+	nmap <silent> <leader>gi <Plug>(coc-implementation)
+	nmap <silent> <leader>su <Plug>(coc-references)
 	nnoremap <silent> <leader>k :CocCommand explorer --quit-on-open<cr>
 	nnoremap <silent> K :call <SID>show_documentation()<CR>
 	nnoremap <silent> [c <Plug>(coc-diagnostic-prev)
