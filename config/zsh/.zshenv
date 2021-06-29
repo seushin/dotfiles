@@ -6,7 +6,7 @@ fi
 
 # cluster
 if [ -e "$HOME/.brew" ]; then
-	export PATH="$HOME/.brew/bin:/Users/seushin/.brew/opt/llvm/bin/:$PATH"
+	export PATH="$HOME/.brew/bin:$HOME/.brew/opt/llvm/bin/:$PATH"
 else
 	export PATH="/usr/local/opt/llvm/bin:$PATH"
 fi
@@ -16,8 +16,14 @@ fi
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border \
-	--preview 'bat --color=always --theme=gruvbox-dark --style=numbers --line-range=:300 {}'"
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+
+source "$HOME/.config/zsh/z.sh"
+unalias z 2> /dev/null
+z() {
+  [ $# -gt 0 ] && _z "$*" && return
+  cd "$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf --height 40% --nth 1.. --reverse --tac --query "${*##-* }")"
+}
 
 # zsh-syntax-highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
