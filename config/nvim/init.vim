@@ -9,12 +9,18 @@ Plug 'morhetz/gruvbox'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
-	let g:fzf_layout = { 'down': '30%' }
-	let $FZF_DEFAULT_OPTS='--reverse'
-	let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+	let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
+	let $FZF_DEFAULT_OPTS='--layout=reverse'
+	let g:fzf_preview_window = ['right:45%', 'ctrl-/']
 	nmap <leader><tab> <plug>(fzf-maps-n)
-	nnoremap <Leader><C-p> :GFiles<CR>
+	nnoremap <C-p> :GFiles<CR>
 	nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'coc-explorer' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
+	command! -bang -nargs=* Rg
+	  \ call fzf#vim#grep(
+	  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+	  \   <bang>0)
+	nmap <leader>rg :Rg<space>
+	nmap <silent> <C-f> :Rg <C-R><C-W><CR>
 
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }}
 	let g:coc_global_extensions = [
@@ -54,8 +60,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }}
 	nmap <silent> <leader>su <Plug>(coc-references)
 	nnoremap <silent> <leader>k :CocCommand explorer --quit-on-open<cr>
 	nnoremap <silent> K :call <SID>show_documentation()<CR>
-	nnoremap <silent> [c <Plug>(coc-diagnostic-prev)
-	nnoremap <silent> ]c <Plug>(coc-diagnostic-next)
+	nmap <silent> [g <Plug>(coc-diagnostic-prev)
+	nmap <silent> ]g <Plug>(coc-diagnostic-next)
 	inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : coc#refresh()
 	inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
 	inoremap <silent><expr> <cr> pumvisible() ?
@@ -155,6 +161,7 @@ set signcolumn=yes
 set cmdheight=1
 set scrolloff=8
 set colorcolumn=80
+set timeoutlen=300
 set list listchars=tab:→\ ,
 set clipboard=unnamed
 set undofile undodir=$HOME/.config/nvim/undo
@@ -164,6 +171,7 @@ augroup indent_list
 	autocmd!
 	autocmd FileType html,css setlocal ts=2 sw=2 expandtab
 	autocmd FileType javascript,yaml setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType markdown setlocal wrap colorcolumn=""
 augroup END
 
 nnoremap <tab> :bn<CR>

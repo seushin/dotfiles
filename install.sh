@@ -42,6 +42,9 @@ set_symlink() {
 		fi
 		ln -sfv "$BASE/$file" ~/."$file"
 	done
+	TARGET="${HOME}/.config/zsh"
+	mv -v "${TARGET}" "${BASE}/backup/"
+	ln -sfv "${BASE}/config/zsh" "${TARGET}"
 }
 
 set_brew() {
