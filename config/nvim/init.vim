@@ -10,7 +10,8 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
 	let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
-	let $FZF_DEFAULT_OPTS='--layout=reverse'
+	let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" '
+	let $FZF_DEFAULT_OPTS='--layout=reverse-list'
 	let g:fzf_preview_window = ['right:45%', 'ctrl-/']
 	nmap <leader><tab> <plug>(fzf-maps-n)
 	nnoremap <C-p> :GFiles<CR>
