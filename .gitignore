@@ -1,4 +1,14 @@
 backup/
-config/nvim/undo/
 .DS_Store
-.netrwhist
+
+config/zsh/*
+!config/zsh/include
+!config/zsh/.zshrc
+!config/zsh/z.sh
+
+config/nvim/*
+!config/nvim/autoload
+!config/nvim/init.vim
+!config/nvim/coc-settings.json
+!config/nvim/after
+!config/nvim/plugin

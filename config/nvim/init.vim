@@ -12,7 +12,7 @@ Plug 'junegunn/fzf.vim'
 	let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
 	let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" '
 	let $FZF_DEFAULT_OPTS='--layout=reverse-list'
-	let g:fzf_preview_window = ['right:45%', 'ctrl-/']
+	let g:fzf_preview_window = ['right:60%', 'ctrl-/']
 	nmap <leader><tab> <plug>(fzf-maps-n)
 	nnoremap <C-p> :GFiles<CR>
 	nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'coc-explorer' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
@@ -143,6 +143,8 @@ Plug 'tpope/vim-fugitive'
 	nnoremap <leader>dg :diffget<CR>
 	autocmd FileType git set foldlevel=1
 
+Plug 'cespare/vim-toml'
+
 call plug#end()
 
 colorscheme gruvbox
@@ -162,7 +164,7 @@ set signcolumn=yes
 set cmdheight=1
 set scrolloff=8
 set colorcolumn=80
-set timeoutlen=300
+set timeoutlen=400
 set list listchars=tab:→\ ,
 set clipboard=unnamed
 set undofile undodir=$HOME/.config/nvim/undo
@@ -175,7 +177,41 @@ augroup indent_list
 	autocmd FileType markdown setlocal wrap colorcolumn=""
 augroup END
 
-nnoremap <tab> :bn<CR>
-nnoremap <s-tab> :bp<CR>
-nnoremap <leader>bd :bd<CR>
+function! PrevBufferTab()
+	if &buftype == 'terminal'
+		wincmd p
+	endif
+	bprev
+	if &buftype == 'terminal'
+		bprev
+	endif
+endfunction
+
+function! NextBufferTab()
+	if &buftype == 'terminal'
+		wincmd p
+	endif
+	bnext
+	if &buftype == 'terminal'
+		bnext
+	endif
+endfunction
+
+nnoremap <tab> :call NextBufferTab()<CR>
+nnoremap <S-tab> :call PrevBufferTab()<CR>
+nnoremap <leader>bd :bd!<CR>
 nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
+nnoremap <expr> <CR> v:hlsearch ? ":nohl\<CR>" : "\<CR>"
+
+function! s:small_terminal() abort
+	new
+	wincmd J
+	call nvim_win_set_height(0, 12)
+	set winfixheight
+	term
+	startinsert
+endfunction
+nnoremap <leader>t :call <SID>small_terminal()<CR>
+
+" Make esc leave terminal mode
+tnoremap <expr> <Esc> (&filetype == "fzf") ? '<Esc>' : '<C-\><C-n><C-w><C-p>'
