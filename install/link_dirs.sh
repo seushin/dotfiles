@@ -3,7 +3,7 @@
 set -x
 
 BASE=$(pwd)
-CONFIG_HOME=$(HOME)/.config/
+CONFIG_HOME=$HOME/.config
 
 if [[ -e $HOME/.zshenv ]]; then
 	mv $HOME/.zshenv $HOME/.zshenv_backup

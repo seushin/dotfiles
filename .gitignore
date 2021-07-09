@@ -1,6 +1,12 @@
 backup/
 .DS_Store
 
+config/*
+!config/zsh
+!config/nvim
+!config/git
+!config/tmux
+
 config/zsh/*
 !config/zsh/include
 !config/zsh/.zshrc
