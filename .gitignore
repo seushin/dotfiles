@@ -14,7 +14,8 @@ config/zsh/*
 
 config/nvim/*
 !config/nvim/autoload
-!config/nvim/init.vim
+!config/nvim/init.*
 !config/nvim/coc-settings.json
 !config/nvim/after
 !config/nvim/plugin
+!config/nvim/lua
