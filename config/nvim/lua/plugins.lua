@@ -204,4 +204,5 @@ return require("packer").startup {
   use("tpope/vim-surround")
   use("christoomey/vim-tmux-navigator")
   use("seushin/42header.vim")
+  use("mhinz/vim-startify")
 }
