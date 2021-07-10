@@ -44,18 +44,37 @@ else
   require("config.lsp.kind").setup()
 end
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = { "documentation", "detail", "additionalTextEdits" },
+}
+
 local function on_attach(client, bufnr)
   require("config.lsp.keys").setup(client, bufnr)
   require("config.lsp.highlighting").setup(client)
+  require("config.lsp.completion").setup(client, bufnr)
 end
 
 local servers = {
-  "tsserver",
-  "clangd",
+  tsserver = {},
+  clangd = {
+    cmd = {
+      "clangd",
+      "--background-index",
+      "--suggest-missing-includes",
+      "--header-insertion=iwyu",
+    },
+  },
 }
 
-for _, server in pairs(servers) do
-  lspconfig[server].setup {
-	  on_attach = on_attach,
-  }
+for server, config in pairs(servers) do
+  lspconfig[server].setup(vim.tbl_deep_extend("force", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }, config))
+  local cfg = lspconfig[server]
+  if not (cfg and cfg.cmd and vim.fn.executable(cfg.cmd[1]) == 1) then
+    util.error(server .. ": cmd not found: " .. vim.inspect(cfg.cmd))
+  end
 end

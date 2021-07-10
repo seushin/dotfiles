@@ -1,3 +1,5 @@
+vim.cmd([[packadd packer.nvim]])
+
 return require("packer").startup {
   -- Packer can manage itself as an optional plugin
   use({ "wbthomason/packer.nvim", opt = true })
@@ -100,13 +102,12 @@ return require("packer").startup {
     cmd = { "Telescope" },
     keys = { "<leader><space>", "<leader>fz", "<leader>p" },
     requires = {
-      "nvim-telescope/telescope-z.nvim",
-      "nvim-telescope/telescope-project.nvim",
       "nvim-lua/popup.nvim",
       "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-z.nvim",
+      "nvim-telescope/telescope-project.nvim",
       "nvim-telescope/telescope-symbols.nvim",
-      "nvim-telescope/telescope-fzy-native.nvim",
-      -- { "nvim-telescope/telescope-frecency.nvim", requires = "tami5/sql.nvim" }
+      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
     },
   })
 
