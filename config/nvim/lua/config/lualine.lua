@@ -1,7 +1,3 @@
-local function clock()
-  return " " .. os.date("%H:%M")
-end
-
 local function lsp_progress()
   local messages = vim.lsp.util.get_progress_messages()
   if #messages == 0 then
@@ -15,6 +11,21 @@ local function lsp_progress()
   local ms = vim.loop.hrtime() / 1000000
   local frame = math.floor(ms / 120) % #spinners
   return table.concat(status, " | ") .. " " .. spinners[frame + 1]
+end
+
+local function find_home_dir(path)
+  local home = os.getenv("HOME")
+  local _, index = string.find(path, home, 1)
+  if index ~= nil and index ~= string.len(path) then
+    return string.gsub(path, home, '~')
+  end
+  return path
+end
+
+local function get_cur_file()
+  local path = vim.api.nvim_call_function("expand", { "%F" })
+  path = find_home_dir(path)
+  return path
 end
 
 vim.cmd([[autocmd User LspProgressUpdate let &ro = &ro]])
@@ -31,10 +42,10 @@ local config = {
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch" },
-    lualine_c = { { "diagnostics", sources = { "nvim_lsp" } }, "filename" },
+    lualine_c = { { "diagnostics", sources = { "nvim_lsp" } }, get_cur_file },
     lualine_x = { "filetype", lsp_progress },
     lualine_y = { "progress" },
-    lualine_z = { clock },
+    lualine_z = { "location" },
   },
   inactive_sections = {
     lualine_a = {},

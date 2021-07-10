@@ -64,6 +64,9 @@ local servers = {
       "--background-index",
       "--suggest-missing-includes",
       "--header-insertion=iwyu",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
     },
   },
 }

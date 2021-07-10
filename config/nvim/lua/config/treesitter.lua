@@ -21,7 +21,6 @@ require("nvim-treesitter.configs").setup({
     "typescript",
     "yaml",
     "json",
-    "markdown",
   },
   highlight = { enable = true, use_languagetree = true },
   indent = { enable = false },

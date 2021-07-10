@@ -1,3 +1,5 @@
+local util = require("util")
+
 -- empty by default
 vim.g.nvim_tree_ignore = { ".git", "node_modules" }
 -- 0 by default, opens the tree when typing `vim $DIR` or `vim`
@@ -7,7 +9,7 @@ vim.g.nvim_tree_auto_close = 1
 -- 0 by default, closes the tree when you open a file
 vim.g.nvim_tree_quit_on_open = 1
 -- 0 by default, this option allows the cursor to be updated when entering a buffer
-let g:nvim_tree_follow = 1
+vim.g.nvim_tree_follow = 1
 vim.g.nvim_tree_auto_ignore_ft = { "dashboard", "startify" }
 vim.g.nvim_tree_indent_markers = 1
 -- 0 by default, will enable file highlight for git attributes (can be used without the icons).

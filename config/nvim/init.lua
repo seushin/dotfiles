@@ -1,5 +1,9 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 require("util")
 require("options")
+require("config.keys")
 
 if require("util.download_packer")() then
 	return
