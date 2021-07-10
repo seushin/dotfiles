@@ -13,6 +13,7 @@ return require("packer").startup(function()
       require("config.lsp")
     end,
   }
+  use "folke/lua-dev.nvim"
 
   use {
     "hrsh7th/nvim-compe",

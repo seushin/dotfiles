@@ -56,6 +56,15 @@ local function on_attach(client, bufnr)
   require("config.lsp.completion").setup(client, bufnr)
 end
 
+local lua_cmd = {
+  "/Users/seushin/dev/lua-language-server/bin/macOS/lua-language-server",
+  "-E",
+  "-e",
+  "LANG=en",
+  "/Users/seushin/dev/lua-language-server/main.lua",
+}
+lua_cmd = { "lua-language-server" }
+
 local servers = {
   tsserver = {},
   clangd = {
@@ -69,6 +78,9 @@ local servers = {
       "-Wextra",
     },
   },
+  sumneko_lua = require("lua-dev").setup({
+    lspconfig = { cmd = lua_cmd },
+  }),
 }
 
 for server, config in pairs(servers) do
