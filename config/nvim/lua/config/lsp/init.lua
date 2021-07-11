@@ -70,8 +70,11 @@ local servers = {
       "--background-index",
       "--suggest-missing-includes",
       "--header-insertion=iwyu",
+    },
+    flags = {
       "-Wall",
       "-Werror",
+      "-Wextra",
     },
   },
   sumneko_lua = require("lua-dev").setup({
