@@ -1,5 +1,6 @@
 local util = require("util")
 
+vim.g.nvim_tree_width = 40
 -- empty by default
 vim.g.nvim_tree_ignore = { ".git", "node_modules" }
 -- 0 by default, opens the tree when typing `vim $DIR` or `vim`
@@ -13,7 +14,7 @@ vim.g.nvim_tree_follow = 1
 vim.g.nvim_tree_auto_ignore_ft = { "dashboard", "startify" }
 vim.g.nvim_tree_indent_markers = 1
 -- 0 by default, will enable file highlight for git attributes (can be used without the icons).
-vim.g.nvim_tree_git_hl = 1
+vim.g.nvim_tree_git_hl = 0
 -- 1 by default, disables netrw
 vim.g.nvim_tree_disable_netrw = 0
 -- 0 by default, will show lsp diagnostics in the signcolumn.

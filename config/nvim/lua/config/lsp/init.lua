@@ -59,11 +59,8 @@ end
 local lua_cmd = {
   "/Users/seushin/dev/lua-language-server/bin/macOS/lua-language-server",
   "-E",
-  "-e",
-  "LANG=en",
   "/Users/seushin/dev/lua-language-server/main.lua",
 }
-lua_cmd = { "lua-language-server" }
 
 local servers = {
   tsserver = {},
@@ -75,7 +72,6 @@ local servers = {
       "--header-insertion=iwyu",
       "-Wall",
       "-Werror",
-      "-Wextra",
     },
   },
   sumneko_lua = require("lua-dev").setup({

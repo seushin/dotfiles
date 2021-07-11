@@ -1,4 +1,6 @@
-require("neogit").setup({
+local neogit = require("neogit")
+
+neogit.setup({
   signs = {
     -- { CLOSED, OPENED }
     section = { "", "" },

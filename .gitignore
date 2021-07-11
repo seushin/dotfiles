@@ -17,5 +17,4 @@ config/nvim/*
 !config/nvim/init.*
 !config/nvim/coc-settings.json
 !config/nvim/after
-!config/nvim/plugin
 !config/nvim/lua

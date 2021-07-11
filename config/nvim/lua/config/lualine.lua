@@ -73,8 +73,4 @@ end
 
 M.load()
 
--- vim.api.nvim_exec([[
---   autocmd ColorScheme * lua require("config.lualine").load();
--- ]], false)
-
 return M

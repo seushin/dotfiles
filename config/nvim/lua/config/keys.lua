@@ -20,6 +20,8 @@ util.nnoremap("<leader><CR>", ":so ~/.config/nvim/init.lua<CR>")
 
 util.nnoremap("<leader>k", ":NvimTreeToggle<CR>")
 
+util.nnoremap("<leader>gs", ":Neogit<CR>")
+
 -- telescope <ctrl-r> in command line
 -- vim.cmd([[cmap <C-R> <Plug>(TelescopeFuzzyCommandSearch)]])
 

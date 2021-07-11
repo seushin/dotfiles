@@ -1,4 +1,4 @@
-require("toggleterm").setup({
+require("toggleterm").setup {
   size = 12,
   hide_numbers = true,
   open_mapping = [[<leader>t]],
@@ -8,7 +8,7 @@ require("toggleterm").setup({
   start_in_insert = true,
   persist_size = true,
   direction = "horizontal",
-})
+}
 
 -- Hide number column for
 -- vim.cmd [[au TermOpen * setlocal nonumber norelativenumber]]
