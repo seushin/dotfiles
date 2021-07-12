@@ -1,6 +1,14 @@
-vim.cmd([[packadd packer.nvim]])
+local packer = nil
 
-return require("packer").startup(function()
+local function init()
+  if packer == nil then
+    packer = require("packer")
+    packer.init { disable_commands = true }
+  end
+
+  local use = packer.use
+  packer.reset()
+
   -- Packer can manage itself as an optional plugin
   use { "wbthomason/packer.nvim", opt = true }
 
@@ -112,7 +120,7 @@ return require("packer").startup(function()
   -- Terminal
   use {
     "akinsho/nvim-toggleterm.lua",
-    keys = "<leader>t",
+    keys = "<C-t>",
     config = function()
       require("config.terminal")
     end,
@@ -162,8 +170,18 @@ return require("packer").startup(function()
     end,
   }
 
+  use "tpope/vim-fugitive"
   use "tpope/vim-surround"
   use "christoomey/vim-tmux-navigator"
   use "seushin/42header.vim"
   use "mhinz/vim-startify"
-end)
+end
+
+local plugins = setmetatable({}, {
+  __index = function(_, key)
+    init()
+    return packer[key]
+  end,
+})
+
+return plugins

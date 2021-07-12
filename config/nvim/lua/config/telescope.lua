@@ -1,4 +1,5 @@
 local telescope = require("telescope")
+local actions = require("telescope.actions")
 local util = require("util")
 
 telescope.setup({
@@ -10,6 +11,55 @@ telescope.setup({
     },
   },
   defaults = {
+    prompt_prefix = " ",
+    selection_caret = " ",
+    -- entry_prefix = "  ",
+    -- initial_mode = "insert",
+    winblend = 0,
+    selection_strategy = "reset",
+    sorting_strategy = "descending",
+    color_devicons = true,
+
+    file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+    grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+    qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        -- width_padding = 0.1,
+        -- height_padding = 0.1,
+        preview_width = function(_, cols, _)
+          if cols > 200 then
+            return math.floor(cols * 0.4)
+          else
+            return math.floor(cols * 0.6)
+          end
+        end,
+      },
+      vertical = {
+        -- width_padding = 0.05,
+        -- height_padding = 1,
+        width = 0.9,
+        height = 0.95,
+        preview_height = 0.5,
+      },
+      flex = {
+        horizontal = {
+          preview_width = 0.9,
+        },
+      },
+    },
+
+    mappings = {
+      i = {
+        ["<Esc>"] = actions.close,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+      }
+    },
+
+    -- file_ignore_patterns = {},
     -- vimgrep_arguments = {
     --   'rg',
     --   '--color=never',
@@ -19,26 +69,6 @@ telescope.setup({
     --   '--column',
     --   '--smart-case'
     -- },
-    prompt_prefix = " ",
-    selection_caret = " ",
-    -- entry_prefix = "  ",
-    -- initial_mode = "insert",
-    winblend = 0,
-    selection_strategy = "reset",
-    sorting_strategy = "descending",
-    color_devicons = true,
-    -- layout_strategy = "horizontal",
-    -- layout_defaults = {
-    --   horizontal = {
-    --     mirror = false,
-    --   },
-    --   vertical = {
-    --     mirror = false,
-    --   },
-    -- },
-    -- file_sorter = require"telescope.sorters".get_fzy_file
-    -- file_ignore_patterns = {},
-    -- generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
   },
 })
 
@@ -59,4 +89,6 @@ local function project_files(opts)
   require("telescope.builtin").git_files(opts)
 end
 
-util.nnoremap("<Leader><Space>", project_files)
+util.nnoremap("<Leader><Space>", require("telescope.builtin").find_files)
+util.nnoremap("<C-p>", project_files)
+util.nnoremap("<leader>f", require("telescope.builtin").live_grep)

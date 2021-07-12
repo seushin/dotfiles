@@ -94,6 +94,9 @@ end
 function M.snoremap(key, cmd, opts)
   return map("s", key, cmd, opts, { noremap = true })
 end
+function M.tnoremap(key, cmd, opts)
+  return map("t", key, cmd, opts, { noremap = true })
+end
 
 function M.t(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)

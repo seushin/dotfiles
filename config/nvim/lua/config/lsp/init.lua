@@ -70,11 +70,13 @@ local servers = {
       "--background-index",
       "--suggest-missing-includes",
       "--header-insertion=iwyu",
+      "--clang-tidy", -- clang-based c++ linter
     },
     flags = {
       "-Wall",
       "-Werror",
       "-Wextra",
+      "-I.",
     },
   },
   sumneko_lua = require("lua-dev").setup({

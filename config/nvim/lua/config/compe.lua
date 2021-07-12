@@ -31,3 +31,19 @@ require("compe").setup({
     spell = true,
   },
 })
+
+local function complete()
+  if vim.fn.pumvisible() == 1 then
+    return vim.fn["compe#confirm"]({ keys = "<cr>", select = true })
+  else
+    return require("nvim-autopairs").autopairs_cr()
+  end
+end
+
+local expr = { expr = true, silent = true }
+
+util.imap("<CR>", complete, expr)
+util.inoremap("<C-Space>", "compe#complete()", expr)
+util.inoremap("<C-e>", "compe#close('<C-e>')", expr)
+util.inoremap ("<C-j>", "pumvisible() ? '<C-n>' : compe#complete()", expr)
+util.inoremap("<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", expr)

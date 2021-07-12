@@ -1,5 +1,3 @@
-local util = require("util")
-
 vim.g.nvim_tree_width = 40
 -- empty by default
 vim.g.nvim_tree_ignore = { ".git", "node_modules" }
