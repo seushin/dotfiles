@@ -1,3 +1,5 @@
+local util = require("util")
+
 vim.g.nvim_tree_width = 40
 -- empty by default
 vim.g.nvim_tree_ignore = { ".git", "node_modules" }
@@ -21,3 +23,6 @@ vim.g.nvim_tree_lsp_diagnostics = 1
 require("nvim-tree.events").on_nvim_tree_ready(function()
   vim.cmd("NvimTreeRefresh")
 end)
+
+-- nvim-tree toggle
+util.nnoremap("<leader>k", ":NvimTreeToggle<CR>")

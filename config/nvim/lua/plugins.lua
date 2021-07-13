@@ -35,6 +35,7 @@ local function init()
     "hrsh7th/nvim-compe",
     event = "InsertEnter",
     opt = true,
+    keys = { "<CR>", "<Space>", "<C-e>", "<C-j>", "<C-k>" },
     config = function()
       require("config.compe")
     end,
@@ -52,7 +53,7 @@ local function init()
   use {
     "b3nj5m1n/kommentary",
     opt = true,
-    keys = { "gc" },
+    keys = "gc",
     config = function()
       require("config.comments")
     end,
@@ -80,6 +81,7 @@ local function init()
     "kyazdani42/nvim-tree.lua",
     requires = { "nvim-web-devicons" },
     cmd = { "NvimTreeToggle", "NvimTreeClose" },
+    keys = "<leader>k",
     config = function()
       require("config.nvim-tree")
     end,
@@ -97,7 +99,7 @@ local function init()
       require("config.telescope")
     end,
     cmd = { "Telescope" },
-    keys = { "<leader><space>", "<leader>fz", "<leader>p" },
+    keys = { "<leader><space>", "<leader>f", "<C-p>" },
     requires = {
       "nvim-lua/popup.nvim",
       "nvim-lua/plenary.nvim",
@@ -138,6 +140,7 @@ local function init()
   use {
     "TimUntersberger/neogit",
     cmd = "Neogit",
+    keys = "<leader>gs",
     config = function()
       require("config.neogit")
     end,

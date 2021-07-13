@@ -13,7 +13,7 @@ local function lsp_progress()
   return table.concat(status, " | ") .. " " .. spinners[frame + 1]
 end
 
-local function find_home_dir(path)
+local function sub_home_dir(path)
   local home = os.getenv("HOME")
   local _, index = string.find(path, home, 1)
   if index ~= nil and index ~= string.len(path) then
@@ -22,10 +22,22 @@ local function find_home_dir(path)
   return path
 end
 
+local function get_file_icon(path)
+  if path == "" then
+    return ""
+  end
+  local bufnr = vim.api.nvim_buf_get_number(0)
+  local name = vim.api.nvim_buf_get_name(bufnr)
+  local extension = vim.fn.fnamemodify(name, ':e')
+
+  return require("nvim-web-devicons").get_icon(name, extension, { default = true })
+end
+
 local function get_cur_file()
   local path = vim.api.nvim_call_function("expand", { "%F" })
-  path = find_home_dir(path)
-  return path
+  local icon = get_file_icon(path) or " "
+  path = sub_home_dir(path)
+  return icon .. " " .. path
 end
 
 vim.cmd([[autocmd User LspProgressUpdate let &ro = &ro]])
@@ -33,10 +45,8 @@ vim.cmd([[autocmd User LspProgressUpdate let &ro = &ro]])
 local config = {
   options = {
     theme = "gruvbox",
-    section_separators = { "", "" },
-    component_separators = { "", "" },
-    -- section_separators = { "", "" },
-    -- component_separators = { "", "" },
+    section_separators = { " ", " " },
+    component_separators = { " ", " " },
     icons_enabled = true,
   },
   sections = {
@@ -44,7 +54,7 @@ local config = {
     lualine_b = { "branch" },
     lualine_c = { { "diagnostics", sources = { "nvim_lsp" } }, get_cur_file },
     lualine_x = { "filetype", lsp_progress },
-    lualine_y = { "progress" },
+    lualine_y = {},
     lualine_z = { "location" },
   },
   inactive_sections = {

@@ -89,6 +89,6 @@ local function project_files(opts)
   require("telescope.builtin").git_files(opts)
 end
 
-util.nnoremap("<Leader><Space>", require("telescope.builtin").find_files)
 util.nnoremap("<C-p>", project_files)
+util.nnoremap("<Leader><Space>", require("telescope.builtin").find_files)
 util.nnoremap("<leader>f", require("telescope.builtin").live_grep)

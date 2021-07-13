@@ -16,12 +16,6 @@ util.nnoremap("<leader>bd", ":bd<CR>")
 -- no highlight
 util.nnoremap("<CR>", ":noh<CR><CR>")
 
--- nvim-tree toggle
-util.nnoremap("<leader>k", ":NvimTreeToggle<CR>")
-
--- git status
-util.nnoremap("<leader>gs", ":Neogit<CR>")
-
 -- windows to close with "q"
-vim.cmd([[autocmd FileType help,lspinfo,git nnoremap <buffer><silent> q :close<CR>]])
+vim.cmd([[autocmd FileType help,lspinfo,git,fugitive nnoremap <buffer><silent> q :close<CR>]])
 vim.cmd([[autocmd FileType man nnoremap <buffer><silent> q :quit<CR>]])

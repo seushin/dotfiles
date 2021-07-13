@@ -3,6 +3,7 @@ vim.bo.shiftwidth = indent -- Size of an indent
 vim.bo.smartindent = true -- Insert indents automatically
 vim.bo.undofile = true ]]
 
+vim.opt.encoding = "UTF-8"
 vim.opt.autowrite = true -- enable auto write
 vim.opt.updatetime = 200 -- save swap file and trigger CursorHold
 vim.opt.confirm = true -- confirm to save changes before exiting modified buffer
