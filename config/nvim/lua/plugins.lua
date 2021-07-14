@@ -31,10 +31,22 @@ local function init()
       require("nvim-autopairs").setup()
     end,
   }
+  use "rafamadriz/friendly-snippets"
+  use {
+    "L3MON4D3/LuaSnip",
+    requires = "rafamadriz/friendly-snippets",
+    config = function()
+      require("config.snippets")
+    end,
+  }
   use {
     "hrsh7th/nvim-compe",
     event = "InsertEnter",
     opt = true,
+    requires = {
+      "L3MON4D3/LuaSnip",
+      "rafamadriz/friendly-snippets",
+    },
     keys = { "<CR>", "<Space>", "<C-e>", "<C-j>", "<C-k>" },
     config = function()
       require("config.compe")
