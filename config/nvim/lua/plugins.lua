@@ -14,12 +14,15 @@ local function init()
 
   use { "nvim-lua/plenary.nvim", module = "plenary" }
   use { "nvim-lua/popup.nvim", module = "popup" }
-  use "folke/lua-dev.nvim"
+
   -- LSP
   use {
     "neovim/nvim-lspconfig",
-    opt = true,
-    event = "BufReadPre",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "folke/lua-dev.nvim",
+      "jose-elias-alvarez/nvim-lsp-ts-utils",
+    },
     config = function()
       require("config.lsp")
     end,

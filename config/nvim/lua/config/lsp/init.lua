@@ -54,6 +54,10 @@ local function on_attach(client, bufnr)
   require("config.lsp.keys").setup(client, bufnr)
   require("config.lsp.highlighting").setup(client)
   require("config.lsp.completion").setup(client, bufnr)
+
+  if client.name == "typescript" or client.name == "tsserver" then
+    require("config.lsp.ts-utils").setup(client)
+  end
 end
 
 local lua_cmd = {
