@@ -37,20 +37,16 @@ local function init()
   use "rafamadriz/friendly-snippets"
   use {
     "L3MON4D3/LuaSnip",
-    requires = "rafamadriz/friendly-snippets",
     config = function()
       require("config.snippets")
     end,
   }
   use {
     "hrsh7th/nvim-compe",
-    event = "InsertEnter",
-    opt = true,
     requires = {
       "L3MON4D3/LuaSnip",
       "rafamadriz/friendly-snippets",
     },
-    keys = { "<CR>", "<Space>", "<C-e>", "<C-j>", "<C-k>" },
     config = function()
       require("config.compe")
     end,
@@ -58,8 +54,6 @@ local function init()
 
   use {
     "nvim-treesitter/nvim-treesitter",
-    opt = true,
-    event = "BufRead",
     config = function()
       require('config.treesitter')
     end,
@@ -67,8 +61,6 @@ local function init()
 
   use {
     "b3nj5m1n/kommentary",
-    opt = true,
-    keys = "gc",
     config = function()
       require("config.comments")
     end,
@@ -173,7 +165,6 @@ local function init()
 
   use {
     "norcalli/nvim-colorizer.lua",
-    event = "BufReadPre",
     config = function()
       require("config.colorizer")
     end,
@@ -181,7 +172,6 @@ local function init()
 
   use {
     "RRethy/vim-illuminate",
-    event = "CursorHold",
     module = "illuminate",
     config = function()
       vim.g.Illuminate_delay = 1000
