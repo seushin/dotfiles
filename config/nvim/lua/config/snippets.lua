@@ -10,7 +10,5 @@ luasnip.config.set_config({
 require("luasnip/loaders/from_vscode").load({ path = { '~/.config/nvim/my-snippets' } })
 -- require("luasnip/loaders/from_vscode").lazy_load()
 
-util.imap("<Tab>", "luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'", { expr = true })
-util.smap("<Tab>", "<cmd>lua require('luasnip').jump(1)<Cr>")
-util.imap("<S-Tab>", "<cmd>lua require'luasnip'.jump(-1)<Cr>")
-util.smap("<S-Tab>", "<cmd>lua require'luasnip'.jump(-1)<Cr>")
+util.smap("<C-j>", "<cmd>lua require('luasnip').jump(1)<CR>")
+util.smap("<C-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>")
