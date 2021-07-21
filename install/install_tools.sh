@@ -20,5 +20,5 @@ if [ "$(command -v brew)" ]; then
 	brew install tmux neovim node yarn llvm bat zsh-syntax-highlighting pure
 fi
 if [ "$(command -v npm)" ]; then
-	npm i -g git-split-diffs
+	npm i -g git-split-diffs git-amend
 fi

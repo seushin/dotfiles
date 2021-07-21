@@ -12,6 +12,7 @@ alias vim=$EDITOR
 alias which='type -p'
 alias gv='vim +GV +"autocmd BufWipeout <buffer> qall"'
 
+alias cat='bat --theme=gruvbox-dark'
+
 # apple silicon
 alias brew='arch -x86_64 /usr/local/bin/brew'
-alias cat='bat --theme=gruvbox-dark'
