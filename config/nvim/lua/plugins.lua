@@ -58,6 +58,7 @@ local function init()
       require('config.treesitter')
     end,
   }
+  use "windwp/nvim-ts-autotag"
 
   use {
     "b3nj5m1n/kommentary",
